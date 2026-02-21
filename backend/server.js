@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(
     cors({
-        origin: true,
+        origin: ["https://kod-bank-lemon.vercel.app/","http://localhost:5173", "http://localhost:8080"],
         credentials: true,
     })
 );
