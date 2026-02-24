@@ -15,10 +15,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(
-    cors({
-        origin: ["https://kod-bank-lemon.vercel.app","https://kod-bank-skycstech-7679s-projects.vercel.app","http://localhost:5173", "http://localhost:8080"],
-        credentials: true,
-    })
+    cors({ 
+        origin: "https://kod-bank-sigma.vercel.app",
+        credentials: true,})
 );
 
 // ── Request Logger (dev) ─────────────────────────────
@@ -40,18 +39,10 @@ app.use((err, req, res, next) => {
 });
 
 // ── Start Server ─────────────────────────────────────
-const PORT = process.env.PORT || 5000;
+// Initialize tables once
+initTables().catch((err) => {
+    console.error("❌ Failed to initialize tables:", err.message);
+});
 
-async function startServer() {
-    try {
-        await initTables();
-        app.listen(PORT, () => {
-            console.log(`🚀 Kodnest server running on http://localhost:${PORT}`);
-        });
-    } catch (err) {
-        console.error("❌ Failed to start server:", err.message);
-        process.exit(1);
-    }
-}
-
-startServer();
+// Export app for Vercel
+module.exports = app;
