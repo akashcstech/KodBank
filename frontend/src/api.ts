@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "/api",
+    baseURL: "https://kod-bank-backend.vercel.app/api",
     withCredentials: true,
 });
 
